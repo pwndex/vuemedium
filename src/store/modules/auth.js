@@ -4,17 +4,23 @@ export default {
   namespaced: true,
   state: {
     isSubmitting: false,
-    user: {}
+    currentUser: null,
+    validationErrors: null,
+    isLoggedIn: null
   },
   mutations: {
     registerStart(state) {
       state.isSubmitting = true
+      state.validationErrors = null
     },
-    registerSuccess(state) {
+    registerSuccess(state, payload) {
       state.isSubmitting = false
+      state.currentUser = payload
+      state.isLoggedIn = true
     },
-    registerFailure(state) {
+    registerFailure(state, payload) {
       state.isSubmitting = false
+      state.validationErrors = payload
     }
   },
   actions: {
@@ -24,13 +30,11 @@ export default {
         authApi
           .register(credentials)
           .then(response => {
-            console.log('response', response)
             context.commit('registerSuccess', response.data.user)
             resolve(response.data.user)
           })
           .catch(result => {
-            context.commit('registerFailure')
-            console.log('Result errors: ', result.response.data.errors)
+            context.commit('registerFailure', result.response.data.errors)
           })
       })
     }
