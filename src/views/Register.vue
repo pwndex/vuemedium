@@ -53,7 +53,15 @@ export default {
   },
   methods: {
     onSubmit() {
-      this.$store.dispatch('auth/register')
+      this.$store
+        .dispatch('auth/register', {
+          email: 'adasfthffa@afafasfsdaf.com',
+          username: 'lafgjmaf',
+          password: '1234567890'
+        })
+        .then(response => {
+          console.log('Successfully registered user', response)
+        })
     }
   }
 }
