@@ -6,14 +6,7 @@
       </router-link>
       <ul class="nav navbar-nav pull-xs-right">
         <li class="nav-item">
-          <router-link
-            class="nav-link"
-            :to="{name: 'home'}"
-            exact
-            active-class="active"
-          >
-            &nbsp; Home
-          </router-link>
+          <router-link class="nav-link" :to="{name: 'home'}">Home</router-link>
         </li>
         <template v-if="isLoggedIn">
           <li class="nav-item">
