@@ -38,7 +38,12 @@
           TAG LIST
         </router-link>
       </div>
-      PAGINATION
+      <mcv-pagination
+        :url="baseUrl"
+        :total="feed.articlesCount"
+        :limit="limit"
+        :current-page="currentPage"
+      />
     </div>
   </div>
 </template>
@@ -46,6 +51,9 @@
 <script>
 import {mapState} from 'vuex'
 import {actionTypes} from '@/store/modules/feed'
+import {limit} from '@/helpers/vars'
+import {stringify, parseUrl} from 'query-string'
+import McvPagination from '@/components/Pagination'
 
 export default {
   name: 'McvFeed',
@@ -55,15 +63,47 @@ export default {
       required: true
     }
   },
+  components: {
+    McvPagination
+  },
   computed: {
     ...mapState({
       isLoading: state => state.feed.isLoading,
       feed: state => state.feed.data,
       error: state => state.feed.error
-    })
+    }),
+    limit() {
+      return limit
+    },
+    currentPage() {
+      return Number(this.$route.query.page || '1')
+    },
+    baseUrl() {
+      return this.$route.path
+    },
+    offset() {
+      return this.currentPage * this.limit - this.limit
+    }
+  },
+  watch: {
+    currentPage() {
+      this.fetchFeed()
+    }
+  },
+  methods: {
+    fetchFeed() {
+      const parsedUrl = parseUrl(this.apiUrl)
+      const stringifiedParams = stringify({
+        limit,
+        offset: this.offset,
+        ...parsedUrl.query
+      })
+      const apiUrlWithParams = `${parsedUrl.url}?${stringifiedParams}`
+      this.$store.dispatch(actionTypes.getFeed, {apiUrl: apiUrlWithParams})
+    }
   },
   mounted() {
-    this.$store.dispatch(actionTypes.getFeed, {apiUrl: this.apiUrl})
+    this.fetchFeed()
   }
 }
 </script>
