@@ -1,7 +1,7 @@
 <template>
   <div>
     <mcv-topbar />
-    Vue Medium Clone
+    App Component
     <router-view />
   </div>
 </template>
@@ -16,7 +16,6 @@ export default {
     McvTopbar
   },
   mounted() {
-    console.log('Hello World')
     this.$store.dispatch(actionTypes.getCurrentUser)
   }
 }

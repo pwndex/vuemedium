@@ -82,7 +82,7 @@ export default {
           username: this.username,
           password: this.password
         })
-        .then(() => this.$router.push({name: 'home'}))
+        .then(() => this.$router.push({name: 'globalFeed'}))
     }
   }
 }
