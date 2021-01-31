@@ -4,6 +4,7 @@
     <mcv-error-message v-if="error" />
     <div v-if="feed">
       <div
+        style="padding: 20px"
         class="article-preview"
         v-for="(article, index) in feed.articles"
         :key="index"
