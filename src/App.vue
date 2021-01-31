@@ -1,7 +1,6 @@
 <template>
   <div>
     <mcv-topbar />
-    App Component
     <router-view />
   </div>
 </template>
