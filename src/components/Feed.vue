@@ -33,7 +33,7 @@
           :to="{name: 'article', params: {slug: article.slug}}"
           class="preview-link"
         >
-          <h1>{{ article.slug }}</h1>
+          <h1>{{ article.title }}</h1>
           <p>{{ article.description }}</p>
           <span>Read more...</span>
           <mcv-tag-list :tags="article.tagList" />
