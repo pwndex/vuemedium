@@ -8,4 +8,10 @@ const deleteArticle = slug => {
   return axios.delete(`/articles/${slug}`)
 }
 
-export default {getArticle, deleteArticle}
+const createArticle = articleInput => {
+  return axios
+    .post('/articles', {article: articleInput})
+    .then(response => response.data.article)
+}
+
+export default {getArticle, deleteArticle, createArticle}
