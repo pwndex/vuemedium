@@ -29,6 +29,7 @@
           </div>
           <div class="pull-xs-right">
             <mcv-add-to-favorites
+              v-if="isLoggedIn"
               :is-favorited="article.favorited"
               :article-slug="article.slug"
               :favorites-count="article.favoritesCount"
@@ -85,7 +86,8 @@ export default {
     ...mapState({
       isLoading: state => state.feed.isLoading,
       feed: state => state.feed.data,
-      error: state => state.feed.error
+      error: state => state.feed.error,
+      isLoggedIn: state => state.auth.isLoggedIn
     }),
     limit() {
       return limit
